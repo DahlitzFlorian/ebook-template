@@ -26,11 +26,14 @@ jobs:
           args: >-
             -c "
             tlmgr update --self &&
-            tlmgr install readarray forloop listofitems filecontents &&
+            tlmgr install readarray forloop listofitems filecontents newverbs &&
             pandoc
             ${{ steps.dotenv.outputs.TOC }}
+            -f gfm
             --pdf-engine=xelatex
             --include-in-header pdf_properties.tex
+            --include-in-header inline_code.tex
+            --highlight tango
             -V documentclass=${{ steps.dotenv.outputs.LATEX_CLASS }}
             -o "${{ steps.dotenv.outputs.build }}/pdf/${{ steps.dotenv.outputs.BOOKNAME }}.pdf"
             ${{ steps.dotenv.outputs.CHAPTERS }}
@@ -41,7 +44,11 @@ jobs:
         with:
           args: >-
             ${{ steps.dotenv.outputs.TOC }}
-            -f markdown+smart
+            -f gfm
+            --standalone
+            --css epub.css
+            --highlight tango
+            --top-level-division=chapter
             --metadata title="${{ steps.dotenv.outputs.TITLE }}"
             --metadata author="${{ steps.dotenv.outputs.AUTHOR }}"
             --epub-metadata=${{ steps.dotenv.outputs.METADATA }}
