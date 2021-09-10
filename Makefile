@@ -24,6 +24,6 @@ ${BUILD}/html/${BOOKNAME}.html:
 
 ${BUILD}/pdf/${BOOKNAME}.pdf:
 	mkdir -p ${BUILD}/pdf
-	pandoc ${TOC} -f gfm --include-in-header pdf_properties.tex --include-in-header inline_code.tex --highlight tango --pdf-engine=xelatex -V documentclass=${LATEX_CLASS} -o $@ ${CHAPTERS}
+	pandoc ${TOC} -f gfm --include-in-header pdf_properties.tex --include-in-header inline_code.tex --include-in-header quote.tex --highlight tango --pdf-engine=xelatex -V documentclass=${LATEX_CLASS} -o $@ ${CHAPTERS}
 
 .PHONY: all book clean epub html pdf

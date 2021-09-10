@@ -90,13 +90,10 @@ a {
 }
 
 blockquote {
-    border-style: solid solid solid solid;
-    border-color: #a41434;
-    border-width: medium;
-    border-radius: 0.5em;
-    padding-left: 1em;
-    padding-right: 1em;
-    background-color: #fcecf4;
+    padding: 5px 10px;
+    margin: 0 0 20px;
+    border-left: 5px solid #353535;
+    background-color: #ebebeb;
 }
 
 @media screen { /* Workaround for iBooks issue; see #6242 */

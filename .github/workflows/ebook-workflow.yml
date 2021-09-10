@@ -26,13 +26,14 @@ jobs:
           args: >-
             -c "
             tlmgr update --self &&
-            tlmgr install readarray forloop listofitems filecontents newverbs &&
+            tlmgr install readarray forloop listofitems filecontents newverbs tcolorbox environ &&
             pandoc
             ${{ steps.dotenv.outputs.TOC }}
             -f gfm
             --pdf-engine=xelatex
             --include-in-header pdf_properties.tex
             --include-in-header inline_code.tex
+            --include-in-header quote.tex
             --highlight tango
             -V documentclass=${{ steps.dotenv.outputs.LATEX_CLASS }}
             -o "${{ steps.dotenv.outputs.build }}/pdf/${{ steps.dotenv.outputs.BOOKNAME }}.pdf"
