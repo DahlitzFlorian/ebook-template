@@ -1,0 +1,21 @@
+\usepackage{readarray}[2016-11-07]
+\usepackage{filecontents}
+\newcommand\missingcommand[1]{\csname DATA#1\endcsname}
+\readarraysepchar{=}
+\readdef{.env}{\data}
+\readarray*\data\MyDat[-,2]
+
+\newcounter{datacount}
+\setcounter{datacount}{0}%
+\whiledo{\value{datacount} < \MyDatROWS}{%
+  \stepcounter{datacount}%
+  \expandafter\xdef\csname DATA\MyDat[\arabic{datacount},1]\endcsname{%
+    \MyDat[\arabic{datacount},2]}%
+}
+
+\usepackage{hyperref}
+
+\hypersetup{
+  pdftitle={\missingcommand{TITLE}},
+  pdfauthor={\missingcommand{AUTHOR}}
+}

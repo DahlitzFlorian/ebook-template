@@ -22,12 +22,19 @@ jobs:
       - name: PDF Version
         uses: docker://pandoc/latex:2.14.1
         with:
+          entrypoint: /bin/sh
           args: >-
+            -c "
+            tlmgr update --self &&
+            tlmgr install readarray forloop listofitems filecontents &&
+            pandoc
             ${{ steps.dotenv.outputs.TOC }}
             --pdf-engine=xelatex
+            --include-in-header pdf_properties.tex
             -V documentclass=${{ steps.dotenv.outputs.LATEX_CLASS }}
             -o "${{ steps.dotenv.outputs.build }}/pdf/${{ steps.dotenv.outputs.BOOKNAME }}.pdf"
             ${{ steps.dotenv.outputs.CHAPTERS }}
+            "
       
       - name: EPUB Version
         uses: docker://pandoc/latex:2.14.1
@@ -36,6 +43,7 @@ jobs:
             ${{ steps.dotenv.outputs.TOC }}
             -f markdown+smart
             --metadata title="${{ steps.dotenv.outputs.TITLE }}"
+            --metadata author="${{ steps.dotenv.outputs.AUTHOR }}"
             --epub-metadata=${{ steps.dotenv.outputs.METADATA }}
             --epub-cover-image=${{ steps.dotenv.outputs.COVER_IMAGE }}
             -o "${{ steps.dotenv.outputs.build }}/epub/${{ steps.dotenv.outputs.BOOKNAME }}.epub"

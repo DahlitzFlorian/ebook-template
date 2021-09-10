@@ -16,7 +16,7 @@ pdf: ${BUILD}/pdf/${BOOKNAME}.pdf
 
 ${BUILD}/epub/${BOOKNAME}.epub:
 	mkdir -p ${BUILD}/epub
-	pandoc ${TOC} --metadata title="${TITLE}" --epub-metadata=${METADATA} --epub-cover-image=${COVER_IMAGE} -o $@ ${CHAPTERS}
+	pandoc ${TOC} -f gfm --metadata title="${TITLE}" --metadata author="${AUTHOR}" --epub-metadata=${METADATA} --epub-cover-image=${COVER_IMAGE} -o $@ ${CHAPTERS}
 
 ${BUILD}/html/${BOOKNAME}.html:
 	mkdir -p ${BUILD}/html
@@ -24,6 +24,6 @@ ${BUILD}/html/${BOOKNAME}.html:
 
 ${BUILD}/pdf/${BOOKNAME}.pdf:
 	mkdir -p ${BUILD}/pdf
-	pandoc ${TOC} --pdf-engine=xelatex -V documentclass=${LATEX_CLASS} -o $@ ${CHAPTERS}
+	pandoc ${TOC} -f gfm --include-in-header pdf_properties.tex --pdf-engine=xelatex -V documentclass=${LATEX_CLASS} -o $@ ${CHAPTERS}
 
 .PHONY: all book clean epub html pdf
