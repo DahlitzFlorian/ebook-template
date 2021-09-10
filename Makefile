@@ -14,16 +14,16 @@ html: ${BUILD}/html/${BOOKNAME}.html
 
 pdf: ${BUILD}/pdf/${BOOKNAME}.pdf
 
-${BUILD}/epub/${BOOKNAME}.epub: ${TITLE} ${CHAPTERS}
+${BUILD}/epub/${BOOKNAME}.epub:
 	mkdir -p ${BUILD}/epub
-	pandoc ${TOC} -f markdown+smart --epub-metadata=${METADATA} --epub-cover-image=${COVER_IMAGE} -o ${TITLE}.epub ${CHAPTERS}
+	pandoc ${TOC} --metadata title="${TITLE}" --epub-metadata=${METADATA} --epub-cover-image=${COVER_IMAGE} -o $@ ${CHAPTERS}
 
-${BUILD}/html/${BOOKNAME}.html: ${CHAPTERS}
+${BUILD}/html/${BOOKNAME}.html:
 	mkdir -p ${BUILD}/html
 	pandoc ${TOC} --standalone --to=html5 -o $@ $^
 
-${BUILD}/pdf/${BOOKNAME}.pdf: ${TITLE} ${CHAPTERS}
+${BUILD}/pdf/${BOOKNAME}.pdf:
 	mkdir -p ${BUILD}/pdf
-	pandoc ${TOC} --latex-engine=xelatex -V documentclass=${LATEX_CLASS} -o ${TITLE}.pdf ${CHAPTERS}
+	pandoc ${TOC} --pdf-engine=xelatex -V documentclass=${LATEX_CLASS} -o $@ ${CHAPTERS}
 
 .PHONY: all book clean epub html pdf
