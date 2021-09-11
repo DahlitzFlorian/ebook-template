@@ -30,6 +30,7 @@ jobs:
             pandoc
             ${{ steps.dotenv.outputs.TOC }}
             -f gfm
+            --template pdf_template.tex
             --pdf-engine=xelatex
             --include-in-header pdf_properties.tex
             --include-in-header inline_code.tex
