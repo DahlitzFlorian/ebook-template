@@ -34,6 +34,7 @@ jobs:
             --include-in-header pdf_properties.tex
             --include-in-header inline_code.tex
             --include-in-header quote.tex
+            --metadata-file ${{ steps.dotenv.outputs.metadata }}
             --highlight tango
             -V documentclass=${{ steps.dotenv.outputs.LATEX_CLASS }}
             -o "${{ steps.dotenv.outputs.build }}/pdf/${{ steps.dotenv.outputs.BOOKNAME }}.pdf"
@@ -50,9 +51,7 @@ jobs:
             --css epub.css
             --highlight tango
             --top-level-division=chapter
-            --metadata title="${{ steps.dotenv.outputs.TITLE }}"
-            --metadata author="${{ steps.dotenv.outputs.AUTHOR }}"
-            --epub-metadata=${{ steps.dotenv.outputs.METADATA }}
+            --metadata-file ${{ steps.dotenv.outputs.metadata }}
             --epub-cover-image=${{ steps.dotenv.outputs.COVER_IMAGE }}
             -o "${{ steps.dotenv.outputs.build }}/epub/${{ steps.dotenv.outputs.BOOKNAME }}.epub"
             ${{ steps.dotenv.outputs.CHAPTERS }}

@@ -1,0 +1,12 @@
+---
+title: My book title
+author: Florian Dahlitz
+lang: en-UK
+tags: [pandoc, book, my-book, etc]
+abstract: |
+  Your summary.
+
+# Filter preferences:
+# - pandoc-crossref
+linkReferences: true
+---
